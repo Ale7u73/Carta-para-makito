@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta Interactiva 💌</title>
+    <style>
+        /* Fuente personalizada de Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&family=Playwrite+AU+NSW+Guides&display=swap');
+        
+        /* Estilo general */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Contenedor de la carta */
+        .carta {
+            width: 500px;
+            height: 350px;
+            position: relative;
+            cursor: pointer;
+            perspective: 1000px;
+            text-align: center;
+        }
+
+        /* Texto inicial antes de abrir */
+        .mensaje-inicial {
+            font-size: 1.5em;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .boton-abrir {
+            background: #e91e63;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background 0.3s ease;
+        }
+
+        .boton-abrir:hover {
+            background: #d81b60;
+        }
+
+        /* Parte exterior de la carta */
+        .sobre {
+            width: 100%;
+            height: 100%;
+            background: #ffb6c1;
+            position: absolute;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 1s ease-in-out;
+            transform-origin: top;
+        }
+
+        .sobre img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%; /* Ajusta el ancho al contenedor */
+        height: 100%; /* Ajusta la altura al contenedor */
+        object-fit: cover; /* Asegura que la imagen se adapte sin deformarse */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: opacity 1s ease;
+        }
+
+        .carta.abierta .sobre img {
+        content: url('Mako y Dei.png');
+        transform: rotate(180deg); /* Voltea la imagen */
+        }
+
+        .carta.abierta .sobre {
+            transform: rotateX(180deg);
+        }
+
+        /* Contenido de la carta */
+        .hoja {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #fff5f7, #ffe4e9);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transform: rotateX(-180deg);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: 'Parkinsans', sans-serif; /* Cambié la fuente aquí */
+        }
+
+        .carta.abierta .hoja {
+            opacity: 1;
+            transform: rotateX(0);
+        }
+
+        .hoja h2 {
+            margin: 0;
+            font-size: 2em;
+            color: #e91e63;
+            font-family: 'Parkinsans', sans-serif; /* Cambié la fuente aquí */
+        }
+
+        .hoja p {
+            font-size: 1.3em;
+            color: #444;
+            margin: 10px 20px;
+            line-height: 1.6;
+            font-family: 'Parkinsans', sans-serif; /* Cambié la fuente aquí también */
+        }
+
+        .firma {
+            margin-top: 15px;
+            font-size: 1.5em;
+            color: #e91e63;
+            font-style: italic;
+            font-family: 'Parkinsans', sans-serif; /* Cambié la fuente aquí */
+        }
+
+        /* Imagen dentro de la carta */
+        .foto {
+            margin-top: 10px;
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 3px solid #e91e63;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="carta" id="carta">
+        <div class="mensaje-inicial">
+            <p>Antes de que termine el año, ábrela:</p>
+            <button class="boton-abrir" id="botonAbrir">Abrir Carta 💌</button>
+        </div>
+        <div class="sobre">
+            <img src="Makito y yo 2.png" alt="Imagen Decorativa">
+        </div>
+        <div class="hoja">
+            <h2>¡Hola, Makito! 💚</h2>
+            <p>Gracias a Dios por ponerte en mi vida, realmente me estás haciendo sonreír.</p>
+            <p>Gracias por apoyarme en todos estos procesos y preocuparte por mí,</p>
+            <p>Te lo agradezco a ti y a Dios por todo :3</p>
+            <div class="firma">Te quiero mucho<br>ATTE: Dei &lt;3</div>
+        </div>
+    </div>
+
+    <script>
+        const carta = document.getElementById('carta');
+        const botonAbrir = document.getElementById('botonAbrir');
+        
+        // Crear el objeto de audio
+        const audio = new Audio('The Oh Hellos - Soldier, Poet, King (Official Lyric Video).mp3');
+        audio.loop = true; // Reproducir en bucle
+
+        botonAbrir.addEventListener('click', () => {
+            // Abrir la carta
+            carta.classList.add('abierta');
+            botonAbrir.style.display = 'none';
+            
+            // Reproducir el audio cuando el botón sea presionado
+            audio.play();
+        });
+    </script>
+<audio autoplay loop hidden>
+    <source src="The Oh Hellos - Soldier, Poet, King (Official Lyric Video).mp3" type="audio/mpeg">
+</audio>
+</body>
+</html>
